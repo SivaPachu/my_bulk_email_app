@@ -1,0 +1,228 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+body {
+  background-color: #0f172a; 
+  color: #f8fafc; 
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Base Styles (Mobile First) */
+.app-container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1.5rem;
+}
+
+.mailer-card {
+  background-color: #1e293b; 
+  width: 100%;
+  border-radius: 16px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.3);
+  padding: 2rem;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.card-header {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.card-header h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #f8fafc; 
+  margin-bottom: 0.5rem;
+}
+
+.card-header p {
+  color: #94a3b8; 
+  font-size: 0.9rem;
+}
+
+.mailer-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #f8fafc; 
+  letter-spacing: 0.025em;
+}
+
+input, textarea {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid #334155; 
+  border-radius: 8px;
+  font-size: 0.95rem;
+  color: #f8fafc; 
+  transition: all 0.2s ease;
+  background-color: #0f172a; 
+}
+
+input::placeholder, textarea::placeholder {
+  color: #475569;
+}
+
+input:focus, textarea:focus {
+  outline: none;
+  border-color: #0ea5e9; 
+  box-shadow: 0 0 0 4px rgba(14, 165, 233, 0.2); 
+  background-color: #1e293b; 
+}
+
+textarea {
+  resize: vertical;
+}
+
+.submit-btn {
+  background-color: #0ea5e9; 
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  padding: 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 0.5rem;
+  box-shadow: 0 4px 6px -1px rgba(14, 165, 233, 0.3); 
+}
+
+.submit-btn:hover:not(:disabled) {
+  background-color: #38bdf8; 
+  transform: translateY(-1px);
+  box-shadow: 0 6px 8px -1px rgba(14, 165, 233, 0.4);
+}
+
+.submit-btn:active:not(:disabled) {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px -1px rgba(14, 165, 233, 0.3);
+}
+
+.submit-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.status-message {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  border-radius: 8px;
+  text-align: center;
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.status-message.success {
+  background-color: rgba(16, 185, 129, 0.1);
+  color: #34d399;
+  border: 1px solid rgba(16, 185, 129, 0.2);
+}
+
+.status-message.error {
+  background-color: rgba(244, 63, 94, 0.1);
+  color: #fb7185;
+  border: 1px solid rgba(244, 63, 94, 0.2);
+}
+
+.status-message.loading {
+  background-color: rgba(14, 165, 233, 0.1);
+  color: #7dd3fc;
+  border: 1px solid rgba(14, 165, 233, 0.2);
+}
+
+.spinner {
+  width: 20px;
+  height: 20px;
+  border: 3px solid rgba(255,255,255,0.3);
+  border-radius: 50%;
+  border-top-color: white;
+  animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* =========================================
+   Media Queries for Responsive Design
+   ========================================= */
+
+/* Tablet View */
+@media screen and (min-width: 768px) {
+  .app-container {
+    padding: 2rem;
+  }
+  
+  .mailer-card {
+    padding: 3rem;
+    max-width: 600px;
+  }
+
+  .card-header h2 {
+    font-size: 1.75rem;
+  }
+
+  .card-header p {
+    font-size: 1rem;
+  }
+
+  .mailer-form {
+    gap: 1.5rem;
+  }
+  
+  input, textarea {
+    font-size: 1rem;
+    padding: 0.875rem 1rem;
+  }
+}
+
+/* Laptop and Desktop View */
+@media screen and (min-width: 1024px) {
+  .app-container {
+    padding: 3rem;
+  }
+
+  .mailer-card {
+    max-width: 700px;
+    padding: 3.5rem;
+  }
+
+  .card-header {
+    margin-bottom: 2.5rem;
+  }
+
+  .card-header h2 {
+    font-size: 2rem;
+  }
+
+  .mailer-form {
+    gap: 1.75rem;
+  }
+
+  .submit-btn {
+    padding: 1.125rem;
+    font-size: 1.05rem;
+  }
+}

@@ -13,7 +13,7 @@ function App() {
     setStatus({ type: 'loading', message: 'Sending emails...' });
 
     try {
-      const res = await axios.post('http://localhost:5000/api/send-bulk', formData);
+      const res = await axios.post('https://my-bulk-email-app.onrender.com', formData);
       setStatus({ type: 'success', message: res.data.message });
       setFormData({ subject: '', body: '', recipients: '' });
     } catch (error) {

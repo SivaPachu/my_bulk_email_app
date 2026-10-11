@@ -11,32 +11,32 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* Base Styles (Mobile First) */
 .app-container {
   min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 1.5rem;
+  padding: 3rem; 
 }
 
 .mailer-card {
   background-color: #1e293b; 
   width: 100%;
+  max-width: 700px; 
   border-radius: 16px;
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.3);
-  padding: 2rem;
+  padding: 3.5rem; 
   transition: all 0.3s ease;
   border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .card-header {
-  margin-bottom: 2rem;
+  margin-bottom: 2.5rem; 
   text-align: center;
 }
 
 .card-header h2 {
-  font-size: 1.5rem;
+  font-size: 2rem; 
   font-weight: 700;
   color: #f8fafc; 
   margin-bottom: 0.5rem;
@@ -44,13 +44,13 @@ body {
 
 .card-header p {
   color: #94a3b8; 
-  font-size: 0.9rem;
+  font-size: 1rem; 
 }
 
 .mailer-form {
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
+  gap: 1.75rem; 
 }
 
 .form-group {
@@ -68,10 +68,10 @@ label {
 
 input, textarea {
   width: 100%;
-  padding: 0.75rem 1rem;
+  padding: 0.875rem 1rem; 
   border: 1px solid #334155; 
   border-radius: 8px;
-  font-size: 0.95rem;
+  font-size: 1rem; 
   color: #f8fafc; 
   transition: all 0.2s ease;
   background-color: #0f172a; 
@@ -97,8 +97,8 @@ textarea {
   color: #ffffff;
   border: none;
   border-radius: 8px;
-  padding: 1rem;
-  font-size: 1rem;
+  padding: 1.125rem; 
+  font-size: 1.05rem; 
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -165,12 +165,10 @@ textarea {
   to { transform: rotate(360deg); }
 }
 
-/* =========================================
-   Media Queries for Responsive Design
-   ========================================= */
+/* Media Queries for Responsive Design */
 
 /* Tablet View */
-@media screen and (min-width: 768px) {
+@media screen and (max-width: 1024px) {
   .app-container {
     padding: 2rem;
   }
@@ -180,49 +178,48 @@ textarea {
     max-width: 600px;
   }
 
-  .card-header h2 {
-    font-size: 1.75rem;
+  .card-header {
+    margin-bottom: 2rem;
   }
 
-  .card-header p {
-    font-size: 1rem;
+  .card-header h2 {
+    font-size: 1.75rem;
   }
 
   .mailer-form {
     gap: 1.5rem;
   }
-  
-  input, textarea {
-    font-size: 1rem;
-    padding: 0.875rem 1rem;
-  }
 }
 
-/* Laptop and Desktop View */
-@media screen and (min-width: 1024px) {
+/* Mobile View */
+@media screen and (max-width: 768px) {
   .app-container {
-    padding: 3rem;
+    padding: 1.5rem;
   }
-
+  
   .mailer-card {
-    max-width: 700px;
-    padding: 3.5rem;
-  }
-
-  .card-header {
-    margin-bottom: 2.5rem;
+    padding: 2rem;
   }
 
   .card-header h2 {
-    font-size: 2rem;
+    font-size: 1.5rem;
+  }
+
+  .card-header p {
+    font-size: 0.9rem;
   }
 
   .mailer-form {
-    gap: 1.75rem;
+    gap: 1.25rem;
+  }
+  
+  input, textarea {
+    font-size: 0.95rem;
+    padding: 0.75rem 1rem;
   }
 
   .submit-btn {
-    padding: 1.125rem;
-    font-size: 1.05rem;
+    padding: 1rem;
+    font-size: 1rem;
   }
 }

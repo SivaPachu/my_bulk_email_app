@@ -2,10 +2,9 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const nodemailer = require('nodemailer');
 const { google } = require('googleapis');
 
-// Import the Email model (Make sure you have created models/Email.js)
+// Import the Email model
 const Email = require('./models/Email');
 
 const app = express();
@@ -17,6 +16,7 @@ mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log('MongoDB successfully connected'))
   .catch(err => console.error('MongoDB connection error:', err));
 
+// Set up Google OAuth2 Client
 const OAuth2 = google.auth.OAuth2;
 const oauth2Client = new OAuth2(
   process.env.CLIENT_ID,
@@ -25,34 +25,45 @@ const oauth2Client = new OAuth2(
 );
 oauth2Client.setCredentials({ refresh_token: process.env.REFRESH_TOKEN });
 
+// Initialize Gmail API
+const gmail = google.gmail({ version: 'v1', auth: oauth2Client });
+
 app.post('/api/send-bulk', async (req, res) => {
   const { subject, body, recipients } = req.body;
   
   const emailList = recipients.split(',').map(email => email.trim());
 
   try {
-    const accessToken = await oauth2Client.getAccessToken();
+    // Construct the raw MIME email message
+    const recipientString = emailList.join(', ');
+    const utf8Subject = `=?utf-8?B?${Buffer.from(subject).toString('base64')}?=`;
+    
+    const messageParts = [
+      `From: ${process.env.EMAIL_USER}`,
+      `To: ${recipientString}`,
+      `Content-Type: text/html; charset=utf-8`,
+      `MIME-Version: 1.0`,
+      `Subject: ${utf8Subject}`,
+      '',
+      body
+    ];
+    
+    const message = messageParts.join('\n');
+    
+    // Encode the message to base64url format required by the Gmail API
+    const encodedMessage = Buffer.from(message)
+      .toString('base64')
+      .replace(/\+/g, '-')
+      .replace(/\//g, '_')
+      .replace(/=+$/, '');
 
-    const transporter = nodemailer.createTransport({
-      service: 'gmail',
-      auth: {
-        type: 'OAuth2',
-        user: process.env.EMAIL_USER,
-        clientId: process.env.CLIENT_ID,
-        clientSecret: process.env.CLIENT_SECRET,
-        refreshToken: process.env.REFRESH_TOKEN,
-        accessToken: accessToken.token
-      }
+    // Send the email over HTTP (Bypasses Render's SMTP block)
+    await gmail.users.messages.send({
+      userId: 'me',
+      requestBody: {
+        raw: encodedMessage,
+      },
     });
-
-    const mailOptions = {
-      from: process.env.EMAIL_USER,
-      to: emailList,
-      subject: subject,
-      text: body
-    };
-
-    await transporter.sendMail(mailOptions);
 
     const newEmail = new Email({ 
       subject, 
